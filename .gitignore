@@ -1,0 +1,48 @@
+# ── Python ────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ── Virtual environments ───────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Jupyter ────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── IDEs ───────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Project artefacts (generated — do not commit) ─────────────────────────
+models/*.joblib
+outputs/logs/
+
+# ── Data (may contain PII / large files) ──────────────────────────────────
+data/real/*
+!data/real/.gitkeep
+data/screen/*
+!data/screen/.gitkeep
+
+# ── OS ────────────────────────────────────────────────────────────────────
+desktop.ini
+
+# ── Secrets ───────────────────────────────────────────────────────────────
+.env
+*.key
+*.pem
+secrets.yaml
