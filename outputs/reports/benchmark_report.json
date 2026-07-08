@@ -1,0 +1,79 @@
+{
+  "hardware": {
+    "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "cpu_physical_cores": 8,
+    "cpu_logical_cores": 16,
+    "ram_total": "14.8 GB",
+    "ram_available": "3.1 GB",
+    "os": "Windows 11",
+    "python": "3.13.9"
+  },
+  "latency_ms": {
+    "avg_ms": 307.851,
+    "median_ms": 287.478,
+    "p95_ms": 393.432,
+    "p99_ms": 419.489,
+    "min_ms": 267.606,
+    "max_ms": 438.936,
+    "std_ms": 40.381,
+    "n_measured": 50
+  },
+  "memory": {
+    "tracemalloc_peak_mb": 6.38,
+    "process_rss_delta_mb": 1.55,
+    "process_rss_total_mb": 181.28
+  },
+  "cpu_percent": {
+    "process_cpu_percent": 61.7,
+    "system_cpu_percent": 17.9
+  },
+  "model_sizes": {
+    "model_a": "3.3 KB",
+    "scaler_a": "5.1 KB",
+    "selector_a": "not found",
+    "total": "8.4 KB"
+  },
+  "cost_per_1m_images": {
+    "assumptions": {
+      "measured_median_latency_ms": 287.478,
+      "n_images": 1000000,
+      "note": "Costs are estimates based on measured median latency on the benchmarking machine.  Cold-start penalties, network I/O, storage, and data-transfer costs are excluded.  Prices are approximate as of 2025-Q3 \u2014 verify current rates before production planning."
+    },
+    "on_device": {
+      "cost_usd": "$0.0000",
+      "notes": "Zero cloud spend.  Model runs on-device (mobile / edge CPU). Requires ~50 MB RAM.  One-time model distribution cost only. Recommended for high-throughput real-time liveness checks."
+    },
+    "aws_ec2_t3_medium": {
+      "cost_usd": "$3.3220",
+      "hourly_rate": "$0.0416/hr",
+      "cpu_hours": 79.86,
+      "notes": "Single-threaded.  Use n_jobs=-1 to parallelize."
+    },
+    "aws_ec2_c5_xlarge_parallel": {
+      "cost_usd": "$3.3938",
+      "hourly_rate": "$0.17/hr",
+      "cpu_hours": 19.96,
+      "notes": "4 parallel workers.  Best for batch processing jobs."
+    },
+    "aws_lambda_512mb": {
+      "cost_usd": "$2.6532",
+      "duration_charge": "$2.4532",
+      "request_charge": "$0.2000",
+      "notes": "Scales to zero.  Cold-start adds 200-800ms.  Best for sporadic traffic < 50 req/s."
+    },
+    "google_cloud_run": {
+      "cost_usd": "$7.0835",
+      "notes": "1 vCPU, 256 MB.  Scales to zero.  Best for REST API with variable traffic."
+    },
+    "azure_functions_512mb": {
+      "cost_usd": "$2.5550",
+      "duration_charge": "$2.3550",
+      "execution_charge": "$0.2000",
+      "notes": "Consumption plan.  Similar trade-offs to Lambda."
+    },
+    "recommendation": "On-device for mobile liveness detection (zero cost, lowest latency). Cloud Run or Lambda for server-side REST API with variable load. EC2 c5.xlarge for high-throughput batch processing jobs."
+  },
+  "n_images_benchmarked": 20,
+  "warmup_runs": 3,
+  "benchmark_runs": 50
+}

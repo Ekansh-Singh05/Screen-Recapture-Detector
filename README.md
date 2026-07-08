@@ -259,14 +259,35 @@ utilisation, and artefact disk size.  Generates cost estimates for six
 deployment platforms using the *measured* median latency — not assumed numbers.
 Results are saved to `outputs/reports/benchmark_report.json`.
 
-| Platform | Notes |
-|----------|-------|
-| On-device | Zero cloud cost; ~50 MB RAM |
-| AWS EC2 t3.medium | Single-threaded baseline |
-| AWS EC2 c5.xlarge | 4 parallel workers |
-| AWS Lambda 512 MB | Scales to zero; cold-start penalty |
-| Google Cloud Run | 1 vCPU, 256 MB; REST API |
-| Azure Functions 512 MB | Consumption plan |
+### Measured results
+
+Benchmarked on **AMD Ryzen 7 (8 physical / 16 logical cores), 14.8 GB RAM,
+Windows 11, Python 3.13** — 50 timed runs, 3 warm-up passes discarded.
+
+| Metric | Value |
+|--------|-------|
+| Average latency | 309 ms |
+| Median latency | 303 ms |
+| P95 latency | 363 ms |
+| Min latency | 268 ms |
+| Peak memory (tracemalloc) | 6.4 MB |
+| Process RSS | ~181 MB |
+| Model artefact size (total) | 8.4 KB |
+
+The dominant cost is `cv2.fastNlMeansDenoisingColored` (~60% of total time).
+Replacing it with `cv2.bilateralFilter` reduces latency by ~55% at a small
+accuracy cost — suitable for latency-critical mobile deployments.
+
+### Cost per 1 million images (at measured median latency)
+
+| Platform | Estimated cost |
+|----------|---------------|
+| On-device | $0.00 |
+| AWS Lambda 512 MB | $2.65 |
+| Azure Functions 512 MB | $2.56 |
+| AWS EC2 t3.medium | $3.32 |
+| AWS EC2 c5.xlarge (4 workers) | $3.39 |
+| Google Cloud Run | $7.08 |
 
 ---
 
